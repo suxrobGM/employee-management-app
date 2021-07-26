@@ -28,6 +28,7 @@ namespace EmployeeManagement
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(ICsvService<>), typeof(CsvService<>));
+            services.AddScoped<IUnitOfWork, UnitOfWok>();
             services.AddControllersWithViews();
         }
         
@@ -39,7 +40,7 @@ namespace EmployeeManagement
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Employees/Error");
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -51,7 +52,7 @@ namespace EmployeeManagement
             {
                 endpoints.MapControllerRoute(
                     "default",
-                    "{controller=Home}/{action=Index}/{id?}");
+                    "{controller=Employees}/{action=Index}");
             });
         }
     }

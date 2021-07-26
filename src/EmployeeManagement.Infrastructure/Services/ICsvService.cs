@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using CsvHelper.Configuration;
 
@@ -11,11 +12,11 @@ namespace EmployeeManagement.Infrastructure.Services
     public interface ICsvService<TModel> where TModel: class
     {
         /// <summary>
-        /// Gets all records.
+        /// Gets all records from stream.
         /// </summary>
-        /// <param name="csvFilePath">Path to csv file</param>
-        /// <param name="classMap">Specify custom csv model mapper</param>
-        /// <returns>List of mapped records</returns>
-        IEnumerable<TModel> GetRecords(string csvFilePath, ClassMap<TModel> classMap = null);
+        /// <param name="csvFileStream">CSV file stream.</param>
+        /// <param name="classMap">Specify custom csv model mapper.</param>
+        /// <returns>List of mapped records.</returns>
+        IEnumerable<TModel> GetRecords(Stream csvFileStream, ClassMap<TModel> classMap = null);
     }
 }
