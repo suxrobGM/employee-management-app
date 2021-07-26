@@ -6,9 +6,9 @@ namespace EmployeeManagement.Domain.Entities
     /// <summary>
     /// Entity model of the personnel.
     /// </summary>
-    public class Personnel : IDomainEntity
+    public class Employee : IDomainEntity
     {
-        public Personnel()
+        public Employee()
         {
             Id = Guid.NewGuid().ToString();
         }

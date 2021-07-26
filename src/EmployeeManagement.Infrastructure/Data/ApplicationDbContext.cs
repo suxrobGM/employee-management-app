@@ -14,13 +14,13 @@ namespace EmployeeManagement.Infrastructure.Data
         {
         }
         
-        public DbSet<Personnel> PersonnelRecords { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {               
-                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS; Initial Catalog=EmpManageDB; Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS; Initial Catalog=EmployeesDB; Trusted_Connection=True");
             }
         }
 
