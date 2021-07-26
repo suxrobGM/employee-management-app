@@ -11,12 +11,47 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div id="keyFileForm" class="form-group">
                 <label asp-for="CsvFile"></label>
-                <input asp-for="CsvFile" class="form-control-file border" placeholder="Select csv file"/>
+                <input asp-for="CsvFile" class="form-control-file border" accept=".csv"/>
                 <span asp-validation-for="CsvFile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Import</button>
+                @if (Model.ProcessedRowsCount > 0)
+                {
+                    <span>Processed @Model.ProcessedRowsCount rows</span>
+                }
             </div>
         </form>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            @if (Model.Employees.Count > 0)
+            {
+                <div>
+                    <h2>List of employee</h2>
+                    <hr />
+                    <ejs-grid id="Grid" dataSource="@Model.Employees" allowResizing="true" 
+                              allowSorting="true" toolbar="@(new[] {"Search", "Update", "Delete"})">
+                        <e-grid-editSettings allowDeleting="true" allowEditing="true" 
+                                             showDeleteConfirmDialog="true"></e-grid-editSettings>
+                        @* <e-data-manager url="/Employees/GetList" updateUrl="/Employees/Update" adaptor="UrlAdaptor"></e-data-manager> *@
+                        <e-grid-columns>
+                            <e-grid-column field="PayrollNumber" headerText="Payroll Number" width="100"></e-grid-column>
+                            <e-grid-column field="Forenames" headerText="Forenames" width="100"></e-grid-column>
+                            <e-grid-column field="Surname" headerText="Surname" width="100"></e-grid-column>
+                            <e-grid-column field="DateOfBirth" headerText="Date Of Birth" width="130" format="dd/MM/yyyy"></e-grid-column>
+                            <e-grid-column field="Telephone" headerText="Telephone" width="110"></e-grid-column>
+                            <e-grid-column field="Mobile" headerText="Mobile" width="110"></e-grid-column>
+                            <e-grid-column field="Address1" headerText="Address 1" width="100"></e-grid-column>
+                            <e-grid-column field="Address2" headerText="Address 2" width="100"></e-grid-column>
+                            <e-grid-column field="Postcode" headerText="Postcode" width="100"></e-grid-column>
+                            <e-grid-column field="Email" headerText="Email" width="130"></e-grid-column>
+                            <e-grid-column field="StartDate" headerText="Start Date" width="130" format="dd/MM/yyyy"></e-grid-column>
+                        </e-grid-columns>
+                    </ejs-grid>
+                </div>
+            }
+        </div>
     </div>
 </div>
