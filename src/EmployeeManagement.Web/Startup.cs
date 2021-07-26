@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EmployeeManagement.Domain.Interfaces;
 using EmployeeManagement.Infrastructure.Data;
 using EmployeeManagement.Infrastructure.Repositories;
+using EmployeeManagement.Infrastructure.Services;
 
 namespace EmployeeManagement
 {
@@ -26,6 +27,7 @@ namespace EmployeeManagement
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDbConnection")));
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(ICsvService<>), typeof(CsvService<>));
             services.AddControllersWithViews();
         }
         
@@ -42,9 +44,7 @@ namespace EmployeeManagement
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -4,6 +4,9 @@ using EmployeeManagement.Domain.Entities;
 
 namespace EmployeeManagement.Infrastructure.Data
 {
+    /// <summary>
+    /// Application database context.
+    /// </summary>
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext()
