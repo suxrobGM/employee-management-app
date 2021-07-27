@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Infrastr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Domain", "src\EmployeeManagement.Domain\EmployeeManagement.Domain.csproj", "{534D1066-3410-4857-B1E0-952E0C16AE8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.UnitTests", "test\EmployeeManagement.UnitTests\EmployeeManagement.UnitTests.csproj", "{8DE2DA6C-C706-4780-B8F0-2C6B1ADE3430}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{534D1066-3410-4857-B1E0-952E0C16AE8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{534D1066-3410-4857-B1E0-952E0C16AE8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{534D1066-3410-4857-B1E0-952E0C16AE8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DE2DA6C-C706-4780-B8F0-2C6B1ADE3430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DE2DA6C-C706-4780-B8F0-2C6B1ADE3430}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DE2DA6C-C706-4780-B8F0-2C6B1ADE3430}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DE2DA6C-C706-4780-B8F0-2C6B1ADE3430}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -31,12 +31,16 @@
                 <div>
                     <h2>List of employee</h2>
                     <hr />
-                    <ejs-grid id="Grid" dataSource="@Model.Employees" allowResizing="true" 
+                    <ejs-grid id="Grid" allowResizing="true" allowPaging="true"
                               allowSorting="true" toolbar="@(new[] {"Search", "Update", "Delete"})">
-                        <e-grid-editSettings allowDeleting="true" allowEditing="true" 
-                                             showDeleteConfirmDialog="true"></e-grid-editSettings>
-                        @* <e-data-manager url="/Employees/GetList" updateUrl="/Employees/Update" adaptor="UrlAdaptor"></e-data-manager> *@
+                        
+                        <e-grid-searchSettings ignoreCase="true"></e-grid-searchSettings>
+                        <e-grid-pagesettings pageCount="5" pageSize="25" pageSizes="new[] {25, 50}"></e-grid-pagesettings>
+                        <e-grid-editSettings allowDeleting="true" allowEditing="true" showDeleteConfirmDialog="true"></e-grid-editSettings>
+                        <e-data-manager url="/Employees/GetList" updateUrl="/Employees/Update" removeUrl="/Employees/Delete" adaptor="UrlAdaptor"></e-data-manager>
+                        
                         <e-grid-columns>
+                            <e-grid-column field="Id" headerText="ID" isPrimaryKey="true" visible="false"></e-grid-column>
                             <e-grid-column field="PayrollNumber" headerText="Payroll Number" width="100"></e-grid-column>
                             <e-grid-column field="Forenames" headerText="Forenames" width="100"></e-grid-column>
                             <e-grid-column field="Surname" headerText="Surname" width="100"></e-grid-column>

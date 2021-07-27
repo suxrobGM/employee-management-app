@@ -1,14 +1,15 @@
 ﻿using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Syncfusion.EJ2.Base;
 
 using EmployeeManagement.Domain.Entities;
 using EmployeeManagement.Domain.Interfaces;
 using EmployeeManagement.Infrastructure.Maps;
 using EmployeeManagement.Infrastructure.Services;
 using EmployeeManagement.Models;
-using Syncfusion.EJ2.Base;
 
 namespace EmployeeManagement.Controllers
 {
@@ -46,28 +47,7 @@ namespace EmployeeManagement.Controllers
             };
             return View(viewModel);
         }
-        
-        public IActionResult GetList([FromBody] DataManagerRequest dataManager)
-        {
-            var dataSource = _repository.GetList();
-            return Json(new { result = dataSource, count = dataSource.Count });
-        }
-        
-        public async Task<IActionResult> Update([FromBody] CrudModel<Employee> employeeCrud)
-        {
-            var employeeEntity = _repository.GetById(employeeCrud.Value.Id);
 
-            if (employeeEntity != null)
-            {
-                employeeEntity.Forenames = employeeCrud.Value.Forenames;
-                employeeEntity.Surname = employeeCrud.Value.Surname;
-                _repository.Update(employeeEntity);
-                await _unitOfWork.CommitAsync();
-            }
-            
-            return Json(employeeCrud.Value);
-        }
-        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -98,6 +78,60 @@ namespace EmployeeManagement.Controllers
             model.ProcessedRowsCount = await _unitOfWork.CommitAsync();
             model.Employees = _repository.GetList();
             return View("Index", model);
+        }
+
+        #endregion
+        
+        #region CRUD
+
+        public IActionResult GetList([FromBody] DataManagerRequest dataManager)
+        {
+            var dataSource = _repository.GetQuery();
+            var operation = new DataOperations();
+            var count = dataSource.Count();
+
+            if (dataManager.Search != null)
+                dataSource = operation.PerformSearching(dataSource, dataManager.Search);
+
+            if (dataManager.Sorted != null)
+                dataSource = operation.PerformSorting(dataSource, dataManager.Sorted);
+
+            if (dataManager.Skip != 0)
+                dataSource = operation.PerformSkip(dataSource, dataManager.Skip);
+            
+            if (dataManager.Take != 0)
+                dataSource = operation.PerformTake(dataSource, dataManager.Take);
+            
+            var serializerOptions = new JsonSerializerOptions{ PropertyNameCaseInsensitive = false };
+            return new JsonResult(new {result = dataSource, count}, serializerOptions);
+        }
+        
+        public async Task<IActionResult> Update([FromBody] CrudModel<Employee> employeeCrud)
+        {
+            var employeeEntity = _repository.GetById(employeeCrud.Value.Id);
+
+            if (employeeEntity != null)
+            {
+                employeeEntity.Forenames = employeeCrud.Value.Forenames;
+                employeeEntity.Surname = employeeCrud.Value.Surname;
+                _repository.Update(employeeEntity);
+                await _unitOfWork.CommitAsync();
+            }
+            
+            return Json(employeeCrud.Value);
+        }
+        
+        public async Task<IActionResult> Delete([FromBody] CrudModel<Employee> employeeCrud)
+        {
+            var employeeEntity = _repository.GetById(employeeCrud.Key.ToString());
+
+            if (employeeEntity != null)
+            {
+                _repository.Delete(employeeEntity);
+                await _unitOfWork.CommitAsync();
+            }
+            
+            return Json(employeeCrud);
         }
 
         #endregion
