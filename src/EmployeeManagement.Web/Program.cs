@@ -47,7 +47,7 @@ namespace EmployeeManagement
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-        
+
         #region Static methods for creating logger
 
         private static IConfiguration BuildConfiguration()

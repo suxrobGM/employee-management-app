@@ -16,13 +16,13 @@ namespace EmployeeManagement.Infrastructure.Data
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
-        
+
         public DbSet<Employee> Employees { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {               
+            {
                 optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS; Initial Catalog=EmployeesDB; Trusted_Connection=True");
             }
         }

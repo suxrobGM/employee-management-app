@@ -16,7 +16,7 @@ namespace EmployeeManagement.Infrastructure.Repositories
         {
             _context = context;
         }
-        
+
         public TEntity GetById(string id)
         {
             return Get(i => i.Id == id);

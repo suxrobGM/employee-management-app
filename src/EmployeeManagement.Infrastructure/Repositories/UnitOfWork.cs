@@ -23,7 +23,7 @@ namespace EmployeeManagement.Infrastructure.Repositories
             var type = typeof(TEntity).Name;
             if (_repositories.ContainsKey(type))
                 return (IRepository<TEntity>)_repositories[type];
-            
+
             var repositoryType = typeof(Repository<>);
             _repositories.Add(type, Activator.CreateInstance(
                 repositoryType.MakeGenericType(typeof(TEntity)), _context)
@@ -41,7 +41,7 @@ namespace EmployeeManagement.Infrastructure.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        
+
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)

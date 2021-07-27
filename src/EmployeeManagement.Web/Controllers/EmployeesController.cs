@@ -25,7 +25,7 @@ namespace EmployeeManagement.Controllers
 
         #region Ctor
 
-        public EmployeesController(IUnitOfWork unitOfWork, 
+        public EmployeesController(IUnitOfWork unitOfWork,
             ICsvService<Employee> csv)
         {
             _csv = csv;
@@ -67,7 +67,7 @@ namespace EmployeeManagement.Controllers
                 ModelState.AddModelError("CsvFile", "No file uploaded");
                 return View("Index", model);
             }
-            
+
             var records = _csv.GetRecords(model.CsvFile.OpenReadStream(), new EmployeeMap());
 
             foreach (var employeeData in records)
@@ -81,7 +81,7 @@ namespace EmployeeManagement.Controllers
         }
 
         #endregion
-        
+
         #region CRUD
 
         public IActionResult GetList([FromBody] DataManagerRequest dataManager)
@@ -98,14 +98,14 @@ namespace EmployeeManagement.Controllers
 
             if (dataManager.Skip != 0)
                 dataSource = operation.PerformSkip(dataSource, dataManager.Skip);
-            
+
             if (dataManager.Take != 0)
                 dataSource = operation.PerformTake(dataSource, dataManager.Take);
-            
+
             var serializerOptions = new JsonSerializerOptions{ PropertyNameCaseInsensitive = false };
             return new JsonResult(new {result = dataSource, count}, serializerOptions);
         }
-        
+
         public async Task<IActionResult> Update([FromBody] CrudModel<Employee> employeeCrud)
         {
             var employeeEntity = _repository.GetById(employeeCrud.Value.Id);
@@ -117,10 +117,10 @@ namespace EmployeeManagement.Controllers
                 _repository.Update(employeeEntity);
                 await _unitOfWork.CommitAsync();
             }
-            
+
             return Json(employeeCrud.Value);
         }
-        
+
         public async Task<IActionResult> Delete([FromBody] CrudModel<Employee> employeeCrud)
         {
             var employeeEntity = _repository.GetById(employeeCrud.Key.ToString());
@@ -130,7 +130,7 @@ namespace EmployeeManagement.Controllers
                 _repository.Delete(employeeEntity);
                 await _unitOfWork.CommitAsync();
             }
-            
+
             return Json(employeeCrud);
         }
 

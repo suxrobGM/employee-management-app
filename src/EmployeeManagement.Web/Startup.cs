@@ -21,11 +21,11 @@ namespace EmployeeManagement
         }
 
         public IConfiguration Configuration { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             SyncfusionLicenseProvider.RegisterLicense(Configuration.GetSection("SynLicenseKey").Value);
-            
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDbConnection")));
 
@@ -34,7 +34,7 @@ namespace EmployeeManagement
             services.AddScoped<IUnitOfWork, UnitOfWok>();
             services.AddControllersWithViews();
         }
-        
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

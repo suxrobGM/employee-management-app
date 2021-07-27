@@ -9,9 +9,9 @@ namespace EmployeeManagement.Models
     {
         [Display(Name = "CSV File"), DataType(DataType.Upload)]
         public IFormFile CsvFile { get; set; }
-        
+
         public int ProcessedRowsCount { get; set; }
-        
+
         public IList<Employee> Employees { get; set; }
     }
 }

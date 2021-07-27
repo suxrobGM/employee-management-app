@@ -21,7 +21,7 @@ namespace EmployeeManagement.Infrastructure.Services
 
             using var reader = new StreamReader(csvFileStream);
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-            
+
             if (classMap != null)
                 csv.Context.RegisterClassMap<EmployeeMap>();
 
